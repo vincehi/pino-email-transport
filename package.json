@@ -1,6 +1,6 @@
 {
 	"name": "pino-email-transport",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"description": "Pino transport to send logs via email (SMTP)",
 	"keywords": [
 		"email",
