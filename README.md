@@ -26,29 +26,29 @@ const transport = await emailTransport({
 });
 
 const logger = pino({
-		transport: {
-			targets: [
-				{
-					target: "pino/file",
-					level: "info",
-				},
-				{
-					target: "pino-email-transport",
-					level: "info",
-					options: {
-            smtpFrom: { name: "My App", address: "no-reply@myapp.com" },
-            smtpHost: "smtp.example.com",
-            smtpPort: 587,
-            smtpUser: "user",
-            smtpPass: "pass",
-            debug: false,
-            logger: false,
-            sendTo: "alerts@myapp.com",
-					},
-				},
-			],
-		},
-	});
+  transport: {
+    targets: [
+      {
+        target: "pino/file",
+        level: "info",
+      },
+      {
+        target: "pino-email-transport",
+        level: "info",
+        options: {
+          smtpFrom: { name: "My App", address: "no-reply@myapp.com" },
+          smtpHost: "smtp.example.com",
+          smtpPort: 587,
+          smtpUser: "user",
+          smtpPass: "pass",
+          debug: false,
+          logger: false,
+          sendTo: "alerts@myapp.com",
+        },
+      },
+    ],
+  },
+});
 ```
 
 ### Options
