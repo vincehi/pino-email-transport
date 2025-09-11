@@ -51,9 +51,7 @@
 		"prepublishOnly": "npm run build",
 		"test": "echo \"Error: run tests from root\" && exit 1"
 	},
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"devDependencies": {
 		"@types/events": "^3.0.0",
 		"@types/node": "^20.16.11",
