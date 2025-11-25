@@ -1,2 +1,21 @@
 /dist
 /node_modules
+
+# Test coverage
+/coverage
+*.lcov
+
+# Vitest
+.vitest
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
