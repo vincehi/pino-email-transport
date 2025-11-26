@@ -33,8 +33,8 @@ export interface PinoEmailTransportOptions {
 	flushInterval?: number;
 	/**
 	 * Maximum number of pending email tasks before triggering an automatic flush.
-	 * Set to 0 or undefined to disable threshold-based flushing.
-	 * @default undefined (disabled)
+	 * Set to 0 to disable threshold-based flushing.
+	 * @default 50
 	 */
 	flushThreshold?: number;
 }
@@ -52,7 +52,7 @@ export default async function emailTransport(
 		smtpFrom,
 		sendTo,
 		flushInterval,
-		flushThreshold,
+		flushThreshold = 50, // Default threshold to prevent memory leaks
 	} = options;
 
 	const emailTransporter = nodemailer.createTransport({
@@ -128,11 +128,7 @@ export default async function emailTransport(
 				pendingSendTasks.push(task);
 
 				// Flush if threshold is reached
-				if (
-					flushThreshold &&
-					flushThreshold > 0 &&
-					pendingSendTasks.length >= flushThreshold
-				) {
+				if (flushThreshold > 0 && pendingSendTasks.length >= flushThreshold) {
 					await flush();
 				}
 			}

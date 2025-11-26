@@ -10,8 +10,9 @@ import emailTransport from "../src/index";
 // ============================================================================
 // Exemple 1 : Configuration basique (comportement par défaut)
 // ============================================================================
-// Les emails sont accumulés et envoyés uniquement à la fermeture du processus.
-// ⚠️ Peut causer une fuite mémoire sur un processus de longue durée !
+// Par défaut, flushThreshold est à 50 : les emails sont automatiquement
+// envoyés dès que 50 logs sont accumulés. Pour un processus de longue durée,
+// vous pouvez aussi configurer flushInterval pour un flush périodique.
 
 async function example1_Basic() {
 	const logger = pino({
@@ -27,6 +28,8 @@ async function example1_Basic() {
 				debug: false,
 				logger: false,
 				sendTo: "admin@myapp.com",
+				// flushThreshold: 50 par défaut (automatique)
+				// Pour désactiver : flushThreshold: 0
 			},
 		},
 	});
@@ -34,7 +37,7 @@ async function example1_Basic() {
 	logger.error("An error occurred!");
 	logger.fatal("Critical system failure!");
 
-	// Les emails sont envoyés à la fermeture
+	// Les emails sont envoyés automatiquement à 50 logs, ou à la fermeture
 	await logger.flush();
 }
 

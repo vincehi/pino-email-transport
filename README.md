@@ -70,10 +70,10 @@ const logger = pino({
 - `logger`: boolean
 - `sendTo`: string | string[]
 - `flushInterval` (optional): number - Flush interval in milliseconds. If set, pending email tasks will be flushed periodically. Set to `0` or `undefined` to disable periodic flushing. Default: `undefined` (disabled)
-- `flushThreshold` (optional): number - Maximum number of pending email tasks before triggering an automatic flush. Set to `0` or `undefined` to disable threshold-based flushing. Default: `undefined` (disabled)
+- `flushThreshold` (optional): number - Maximum number of pending email tasks before triggering an automatic flush. Set to `0` to disable threshold-based flushing. Default: `50`
 
 ### Notes
 
 - This transport formats content with `pino-pretty` (no colors) and puts the level in the email subject.
 - It waits for all send operations to complete on close (Promise.allSettled).
-- **Memory leak prevention**: For long-running processes, use `flushInterval` and/or `flushThreshold` to prevent memory leaks by periodically flushing pending email tasks. Without these options, email tasks accumulate until the process exits.
+- **Memory leak prevention**: By default, `flushThreshold` is set to `50` to automatically flush when 50 email tasks are pending. For long-running processes, you can also configure `flushInterval` for periodic flushing. Set `flushThreshold` to `0` to disable automatic flushing (not recommended for long-running processes).
